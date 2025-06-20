@@ -1,0 +1,5 @@
+<launch>
+
+    <node pkg="final_robot_test_description" type="avoid.py" name="obstacle_avoider" output="screen"/>
+
+</launch>

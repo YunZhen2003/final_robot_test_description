@@ -1,0 +1,20 @@
+<launch>
+  
+  <param name="use_sim_time" value="true" />
+  
+  <!-- 載入地圖 -->
+  <arg name="map_file" default="$(find final_robot_test_description)/maps/map_final.yaml" />
+
+  <node name="map_server" pkg="map_server" type="map_server"
+        args="$(arg map_file)" />
+
+  <!-- 啟動 AMCL 定位（使用雷射） -->
+  <node pkg="amcl" type="amcl" name="amcl" output="screen">
+    <param name="base_frame_id" value="base_link"/>
+    <param name="odom_frame_id" value="odom"/>
+    <param name="scan_topic" value="/scan"/>
+  </node>
+
+  <!-- 啟動 move_base 導航 -->
+  <include file="$(find final_robot_test_description)/launch/move_base.launch" />
+</launch>
